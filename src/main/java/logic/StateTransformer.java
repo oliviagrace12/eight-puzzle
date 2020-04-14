@@ -1,7 +1,7 @@
-package main.java.logic;
+package logic;
 
-import main.java.domain.Action;
-import main.java.domain.State;
+import domain.Action;
+import domain.State;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,15 +59,37 @@ public class StateTransformer {
     }
 
     private State modeLeft(State initState) {
-        return null;
+        int initBlank = initState.getBlank();
+        if (initBlank == 0 || initBlank == 3 || initBlank == 6) {
+            System.out.println("ERROR: Cannot move left from leftmost row");
+            return initState;
+        }
+        List<Integer> newNums = new ArrayList<>(initState.getNums());
+        int newBlankIndex = initBlank - 1;
+
+        int valueToMove = initState.getNums().get(newBlankIndex);
+
+        newNums.set(newBlankIndex, 0);
+        newNums.set(initBlank, valueToMove);
+
+        return new State(newNums);
     }
 
     private State moveRight(State initState) {
-        return null;
-    }
+        int initBlank = initState.getBlank();
+        if (initBlank == 2 || initBlank == 5 || initBlank == 8) {
+            System.out.println("ERROR: Cannot move left from leftmost row");
+            return initState;
+        }
+        List<Integer> newNums = new ArrayList<>(initState.getNums());
+        int newBlankIndex = initBlank + 1;
 
-    private State deepCopy(State initState) {
-        return new State(new ArrayList<>(initState.getNums()));
+        int valueToMove = initState.getNums().get(newBlankIndex);
+
+        newNums.set(newBlankIndex, 0);
+        newNums.set(initBlank, valueToMove);
+
+        return new State(newNums);
     }
 
 }

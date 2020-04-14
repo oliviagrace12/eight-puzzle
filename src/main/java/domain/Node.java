@@ -1,26 +1,19 @@
-package main.java.domain;
+package domain;
 
 import java.util.List;
 
 /**
  * Created by oliviachisman on 4/11/20
  */
-public class Node {
+public class Node implements Comparable {
 
     private State state;
     private List<Node> children;
     private Action action;
-    private int depth;
-    private int pathCost;
-    private boolean expanded;
 
-    public Node(State state, List<Node> children, Action action, int depth, int pathCost, boolean expanded) {
+    public Node(State state, Action action) {
         this.state = state;
-        this.children = children;
         this.action = action;
-        this.depth = depth;
-        this.pathCost = pathCost;
-        this.expanded = expanded;
     }
 
     public State getState() {
@@ -47,39 +40,25 @@ public class Node {
         this.action = action;
     }
 
-    public int getDepth() {
-        return depth;
-    }
-
-    public void setDepth(int depth) {
-        this.depth = depth;
-    }
-
-    public int getPathCost() {
-        return pathCost;
-    }
-
-    public void setPathCost(int pathCost) {
-        this.pathCost = pathCost;
-    }
-
-    public boolean isExpanded() {
-        return expanded;
-    }
-
-    public void setExpanded(boolean expanded) {
-        this.expanded = expanded;
-    }
-
     @Override
     public String toString() {
         return "Node{" +
-                "state=" + state +
+                "state=\n" + state +
                 ", children=" + children +
                 ", action=" + action +
-                ", depth=" + depth +
-                ", pathCost=" + pathCost +
-                ", expanded=" + expanded +
                 '}';
     }
+
+    @Override
+    public int compareTo(Object o) {
+        if (o instanceof Node) {
+            if (this.state.equals(((Node) o).state)
+                    && this.action.equals(((Node) o).action)
+                    && this.children.containsAll(((Node) o).children)) {
+                return 0;
+            }
+        }
+
+        return-1;
+}
 }
