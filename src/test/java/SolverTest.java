@@ -3,6 +3,9 @@ import domain.State;
 import logic.Solver;
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 /**

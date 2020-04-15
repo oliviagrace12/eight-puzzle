@@ -17,59 +17,42 @@ public class Solver {
     private final HashMap<Integer, List<Action>> possibleActions;
     private final StateTransformer stateTransformer = new StateTransformer();
     private final State goalState;
-    private final HashMap<Action, Action> oppositeActions;
-    private final HashSet<State> explored = new HashSet<>();
 
     public Solver() {
         this.possibleActions = generatePossibleActions();
         this.goalState = new State(List.of(1, 2, 3, 8, 0, 4, 7, 6, 5));
-        this.oppositeActions = getOppositeActions();
-    }
-
-    private HashMap<Action, Action> getOppositeActions() {
-        HashMap<Action, Action> opposites = new HashMap<>();
-        opposites.put(RIGHT, LEFT);
-        opposites.put(LEFT, RIGHT);
-        opposites.put(UP, DOWN);
-        opposites.put(DOWN, UP);
-
-        return opposites;
     }
 
     public Optional<Node> solveWithBreadthFirstSearch(Node node) {
-        Queue<Node> queue = new ArrayDeque<>();
-        queue.add(node);
+        if (isGoalState(node.getState())) {
+            return Optional.of(node);
+        }
+
+        HashSet<State> explored = new HashSet<>();
+        Queue<Node> toExplore = new ArrayDeque<>();
+        toExplore.add(node);
 
         Node current;
-        while (!queue.isEmpty()) {
-            current = queue.remove();
-            if (!explored.contains(current.getState())) {
-                explored.add(current.getState());
-                if (isGoalState(current.getState())) {
-                    return Optional.of(current);
-                } else {
-                    queue.addAll(getChildNodes(current));
+        while (!toExplore.isEmpty()) {
+            current = toExplore.remove();
+            explored.add(current.getState());
+
+            for (Action action : possibleActions.get(current.getState().getBlank())) {
+                State childState = stateTransformer.transform(current.getState(), action);
+                if (!explored.contains(childState)) {
+                    Node childNode = new Node(childState, action);
+                    if (!toExplore.contains(childNode)) {
+                        if (isGoalState(childState)) {
+                            return Optional.of(childNode);
+                        } else {
+                            toExplore.add(childNode);
+                        }
+                    }
                 }
             }
         }
 
         return Optional.empty();
-    }
-
-    private List<Node> getChildNodes(Node parentNode) {
-        List<Action> actions = possibleActions.get(parentNode.getState().getBlank());
-        if (parentNode.getAction() != null) {
-            Action opposite = oppositeActions.get(parentNode.getAction());
-            actions = actions.stream().filter(a -> !a.equals(opposite)).collect(Collectors.toList());
-        }
-
-        List<Node> childNodes = new ArrayList<>();
-        for (Action action : actions) {
-            State childState = stateTransformer.transform(parentNode.getState(), action);
-            childNodes.add(new Node(childState, action));
-        }
-
-        return childNodes;
     }
 
     private boolean isGoalState(State state) {
