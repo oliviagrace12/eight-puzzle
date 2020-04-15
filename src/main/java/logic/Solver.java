@@ -22,7 +22,7 @@ public abstract class Solver {
         this.goalState = new State(List.of(1, 2, 3, 8, 0, 4, 7, 6, 5));
     }
 
-    public abstract Optional<Node> solve(Node root);
+    public abstract Optional<Node> solve(Node node);
 
     boolean isGoalState(State state) {
         return state.getNums().equals(goalState.getNums()) && state.getBlank() == goalState.getBlank();

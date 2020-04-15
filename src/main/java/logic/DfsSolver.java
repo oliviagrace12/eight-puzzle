@@ -4,16 +4,12 @@ import domain.Action;
 import domain.Node;
 import domain.State;
 
-import java.util.ArrayDeque;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by oliviachisman on 4/14/20
  */
-public class BfsSolver extends Solver {
-
+public class DfsSolver extends Solver {
     @Override
     public Optional<Node> solve(Node node) {
         if (isGoalState(node.getState())) {
@@ -21,12 +17,12 @@ public class BfsSolver extends Solver {
         }
 
         HashSet<State> explored = new HashSet<>();
-        Queue<Node> toExplore = new ArrayDeque<>();
+        Stack<Node> toExplore = new Stack<>();
         toExplore.add(node);
 
         Node current;
         while (!toExplore.isEmpty()) {
-            current = toExplore.remove();
+            current = toExplore.pop();
             explored.add(current.getState());
 
             for (Action action : possibleActions.get(current.getState().getBlank())) {
@@ -37,7 +33,7 @@ public class BfsSolver extends Solver {
                         if (isGoalState(childState)) {
                             return Optional.of(childNode);
                         } else {
-                            toExplore.add(childNode);
+                            toExplore.push(childNode);
                         }
                     }
                 }
