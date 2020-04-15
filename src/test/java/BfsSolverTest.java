@@ -1,17 +1,15 @@
 import domain.Node;
 import domain.State;
+import logic.BfsSolver;
 import logic.Solver;
 import org.junit.Test;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 /**
  * Created by oliviachisman on 4/14/20
  */
-public class SolverTest {
+public class BfsSolverTest {
 
     private final List<Integer> solution = List.of(1, 2, 3, 8, 0, 4, 7, 6, 5);
 
@@ -20,7 +18,7 @@ public class SolverTest {
         State initState = new State(List.of(1, 3, 4, 8, 6, 2, 7, 0, 5));
         Node root = new Node(initState, null);
 
-        Node result = new Solver().solveWithBreadthFirstSearch(root).get();
+        Node result = new BfsSolver().solve(root).get();
 
         assert result.getState().getNums().equals(solution);
     }
@@ -30,7 +28,7 @@ public class SolverTest {
         State initState = new State(List.of(2, 8, 1, 0, 4, 3, 7, 6, 5));
         Node root = new Node(initState, null);
 
-        Node result = new Solver().solveWithBreadthFirstSearch(root).get();
+        Node result = new BfsSolver().solve(root).get();
 
         assert result.getState().getNums().equals(solution);
     }
@@ -40,7 +38,7 @@ public class SolverTest {
         State initState = new State(List.of(5, 6, 7, 4, 0, 8, 3, 2, 1));
         Node root = new Node(initState, null);
 
-        Node result = new Solver().solveWithBreadthFirstSearch(root).get();
+        Node result = new BfsSolver().solve(root).get();
 
         assert result.getState().getNums().equals(solution);
     }
