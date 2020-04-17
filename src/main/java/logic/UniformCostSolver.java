@@ -4,15 +4,12 @@ import domain.Action;
 import domain.Node;
 import domain.State;
 
-import java.util.ArrayDeque;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Created by oliviachisman on 4/14/20
  */
-public class BfsSolver extends Solver {
+public class UniformCostSolver extends Solver {
 
     @Override
     public Optional<Node> solve(Node node) {
@@ -21,7 +18,7 @@ public class BfsSolver extends Solver {
         }
 
         HashSet<State> explored = new HashSet<>();
-        Queue<Node> toExplore = new ArrayDeque<>();
+        PriorityQueue<Node> toExplore = new PriorityQueue<>(Comparator.comparing(Node::getPathCost));
         toExplore.add(node);
 
         Node current;

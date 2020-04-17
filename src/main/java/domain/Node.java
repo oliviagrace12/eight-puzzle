@@ -7,21 +7,23 @@ import java.util.List;
  */
 public class Node implements Comparable {
 
-    private State state;
+    private final State state;
+    private final Action action;
+    private final int pathCost;
     private List<Node> children;
-    private Action action;
 
-    public Node(State state, Action action) {
+    public Node(State state, Action action, int pathCost) {
         this.state = state;
         this.action = action;
+        this.pathCost = pathCost;
+    }
+
+    public int getPathCost() {
+        return pathCost;
     }
 
     public State getState() {
         return state;
-    }
-
-    public void setState(State state) {
-        this.state = state;
     }
 
     public List<Node> getChildren() {
@@ -34,10 +36,6 @@ public class Node implements Comparable {
 
     public Action getAction() {
         return action;
-    }
-
-    public void setAction(Action action) {
-        this.action = action;
     }
 
     @Override

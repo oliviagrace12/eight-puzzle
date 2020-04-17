@@ -17,7 +17,7 @@ public class Main {
 
         State initState = new State(List.of(1, 3, 4, 8, 6, 2, 7, 0, 5));
 
-        Node root = new Node(initState, null);
+        Node root = new Node(initState, null, 0);
 
         Node solution = new BfsSolver().solve(root).get();
 

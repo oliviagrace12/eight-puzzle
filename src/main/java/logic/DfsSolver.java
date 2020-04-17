@@ -26,15 +26,12 @@ public class DfsSolver extends Solver {
             explored.add(current.getState());
 
             for (Action action : possibleActions.get(current.getState().getBlank())) {
-                State childState = stateTransformer.transform(current.getState(), action);
-                if (!explored.contains(childState)) {
-                    Node childNode = new Node(childState, action);
-                    if (!toExplore.contains(childNode)) {
-                        if (isGoalState(childState)) {
-                            return Optional.of(childNode);
-                        } else {
-                            toExplore.push(childNode);
-                        }
+                Node childNode = stateTransformer.transform(current.getState(), action);
+                if (!explored.contains(childNode.getState()) && !toExplore.contains(childNode)) {
+                    if (isGoalState(childNode.getState())) {
+                        return Optional.of(childNode);
+                    } else {
+                        toExplore.push(childNode);
                     }
                 }
             }

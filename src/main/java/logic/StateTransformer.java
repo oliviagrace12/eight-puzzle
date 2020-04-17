@@ -1,6 +1,7 @@
 package logic;
 
 import domain.Action;
+import domain.Node;
 import domain.State;
 
 import java.util.ArrayList;
@@ -11,7 +12,8 @@ import java.util.List;
  */
 public class StateTransformer {
 
-    public State transform(State initState, Action action) {
+    public Node transform(State initState, Action action) {
+
         switch (action) {
             case UP:
                 return moveUp(initState);
@@ -26,11 +28,11 @@ public class StateTransformer {
         return null;
     }
 
-    private State moveUp(State initState) {
+    private Node moveUp(State initState) {
         int initBlank = initState.getBlank();
         if (initBlank == 0 || initBlank == 1 || initBlank == 2) {
             System.out.println("ERROR: Cannot move up from top row");
-            return initState;
+            return null;
         }
         List<Integer> newNums = new ArrayList<>(initState.getNums());
         int newBlankIndex = initBlank - 3;
@@ -39,14 +41,14 @@ public class StateTransformer {
         newNums.set(newBlankIndex, 0);
         newNums.set(initBlank, valueToMove);
 
-        return new State(newNums);
+        return new Node(new State(newNums), Action.UP, valueToMove);
     }
 
-    private State moveDown(State initState) {
+    private Node moveDown(State initState) {
         int initBlank = initState.getBlank();
         if (initBlank == 6 || initBlank == 7 || initBlank == 8) {
             System.out.println("ERROR: Cannot move down from bottom row");
-            return initState;
+            return null;
         }
         List<Integer> newNums = new ArrayList<>(initState.getNums());
         int newBlankIndex = initBlank + 3;
@@ -55,14 +57,14 @@ public class StateTransformer {
         newNums.set(newBlankIndex, 0);
         newNums.set(initBlank, valueToMove);
 
-        return new State(newNums);
+        return new Node(new State(newNums), Action.DOWN, valueToMove);
     }
 
-    private State modeLeft(State initState) {
+    private Node modeLeft(State initState) {
         int initBlank = initState.getBlank();
         if (initBlank == 0 || initBlank == 3 || initBlank == 6) {
             System.out.println("ERROR: Cannot move left from leftmost row");
-            return initState;
+            return null;
         }
         List<Integer> newNums = new ArrayList<>(initState.getNums());
         int newBlankIndex = initBlank - 1;
@@ -72,14 +74,14 @@ public class StateTransformer {
         newNums.set(newBlankIndex, 0);
         newNums.set(initBlank, valueToMove);
 
-        return new State(newNums);
+        return new Node(new State(newNums), Action.LEFT, valueToMove);
     }
 
-    private State moveRight(State initState) {
+    private Node moveRight(State initState) {
         int initBlank = initState.getBlank();
         if (initBlank == 2 || initBlank == 5 || initBlank == 8) {
             System.out.println("ERROR: Cannot move left from leftmost row");
-            return initState;
+            return null;
         }
         List<Integer> newNums = new ArrayList<>(initState.getNums());
         int newBlankIndex = initBlank + 1;
@@ -89,7 +91,7 @@ public class StateTransformer {
         newNums.set(newBlankIndex, 0);
         newNums.set(initBlank, valueToMove);
 
-        return new State(newNums);
+        return new Node(new State(newNums), Action.RIGHT, valueToMove);
     }
 
 }
