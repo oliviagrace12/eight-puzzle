@@ -6,11 +6,14 @@ import domain.State;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by oliviachisman on 4/11/20
  */
 public class StateTransformer {
+
+    private State goalState = new State(List.of(1, 2, 3, 8, 0, 4, 7, 6, 5));
 
     public Node transform(State initState, Action action) {
 
@@ -41,7 +44,9 @@ public class StateTransformer {
         newNums.set(newBlankIndex, 0);
         newNums.set(initBlank, valueToMove);
 
-        return new Node(new State(newNums), Action.UP, valueToMove);
+        State newState = new State(newNums);
+
+        return new Node(newState, Action.UP, valueToMove, findNumberMisplacedTiles(newState));
     }
 
     private Node moveDown(State initState) {
@@ -57,7 +62,9 @@ public class StateTransformer {
         newNums.set(newBlankIndex, 0);
         newNums.set(initBlank, valueToMove);
 
-        return new Node(new State(newNums), Action.DOWN, valueToMove);
+        State newState = new State(newNums);
+
+        return new Node(newState, Action.DOWN, valueToMove, findNumberMisplacedTiles(newState));
     }
 
     private Node modeLeft(State initState) {
@@ -74,7 +81,9 @@ public class StateTransformer {
         newNums.set(newBlankIndex, 0);
         newNums.set(initBlank, valueToMove);
 
-        return new Node(new State(newNums), Action.LEFT, valueToMove);
+        State newState = new State(newNums);
+
+        return new Node(newState, Action.LEFT, valueToMove, findNumberMisplacedTiles(newState));
     }
 
     private Node moveRight(State initState) {
@@ -91,7 +100,19 @@ public class StateTransformer {
         newNums.set(newBlankIndex, 0);
         newNums.set(initBlank, valueToMove);
 
-        return new Node(new State(newNums), Action.RIGHT, valueToMove);
+        State newState = new State(newNums);
+
+        return new Node(newState, Action.RIGHT, valueToMove, findNumberMisplacedTiles(newState));
+    }
+
+    private int findNumberMisplacedTiles(State state) {
+        int misplaced = 0;
+        for (int i = 0; i < state.getNums().size() - 1; i++) {
+            if (!state.getNums().get(i).equals(goalState.getNums().get(i))) {
+                misplaced++;
+            }
+        }
+        return misplaced;
     }
 
 }

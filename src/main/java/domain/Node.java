@@ -10,12 +10,18 @@ public class Node implements Comparable {
     private final State state;
     private final Action action;
     private final int pathCost;
+    private final int heuristic;
     private List<Node> children;
 
-    public Node(State state, Action action, int pathCost) {
+    public Node(State state, Action action, int pathCost, int heuristic) {
         this.state = state;
         this.action = action;
         this.pathCost = pathCost;
+        this.heuristic = heuristic;
+    }
+
+    public int getHeuristic() {
+        return heuristic;
     }
 
     public int getPathCost() {

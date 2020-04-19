@@ -2,8 +2,7 @@ package app;
 
 import domain.Node;
 import domain.State;
-import logic.BfsSolver;
-import logic.Solver;
+import logic.BreadthFirstSolver;
 
 import java.util.List;
 
@@ -17,9 +16,9 @@ public class Main {
 
         State initState = new State(List.of(1, 3, 4, 8, 6, 2, 7, 0, 5));
 
-        Node root = new Node(initState, null, 0);
+        Node root = new Node(initState, null, 0, 0);
 
-        Node solution = new BfsSolver().solve(root).get();
+        Node solution = new BreadthFirstSolver().solve(root).get();
 
         System.out.println("Solution: \n" + solution);
     }
