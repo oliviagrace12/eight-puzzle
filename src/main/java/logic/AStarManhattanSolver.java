@@ -12,7 +12,7 @@ import java.util.PriorityQueue;
 /**
  * Created by oliviachisman on 4/14/20
  */
-public class GreedyBestFirstSolver extends Solver {
+public class AStarManhattanSolver extends Solver {
 
     @Override
     public Optional<Node> solve(Node node) {
@@ -21,7 +21,7 @@ public class GreedyBestFirstSolver extends Solver {
         }
 
         HashSet<State> explored = new HashSet<>();
-        PriorityQueue<Node> toExplore = new PriorityQueue<>(Comparator.comparing(Node::getMisplacedTiles));
+        PriorityQueue<Node> toExplore = new PriorityQueue<>(Comparator.comparing(n -> n.getPathCost() + n.getManhattanDistance()));
         toExplore.add(node);
 
         Node current;

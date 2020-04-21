@@ -46,7 +46,7 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.UP, valueToMove, findNumberMisplacedTiles(newState));
+        return new Node(newState, Action.UP, valueToMove, findNumberMisplacedTiles(newState), findSumOfManhattanDistances(newState));
     }
 
     private Node moveDown(State initState) {
@@ -64,7 +64,7 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.DOWN, valueToMove, findNumberMisplacedTiles(newState));
+        return new Node(newState, Action.DOWN, valueToMove, findNumberMisplacedTiles(newState), findSumOfManhattanDistances(newState));
     }
 
     private Node modeLeft(State initState) {
@@ -83,7 +83,7 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.LEFT, valueToMove, findNumberMisplacedTiles(newState));
+        return new Node(newState, Action.LEFT, valueToMove, findNumberMisplacedTiles(newState), findSumOfManhattanDistances(newState));
     }
 
     private Node moveRight(State initState) {
@@ -102,10 +102,10 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.RIGHT, valueToMove, findNumberMisplacedTiles(newState));
+        return new Node(newState, Action.RIGHT, valueToMove, findNumberMisplacedTiles(newState), findSumOfManhattanDistances(newState));
     }
 
-    private int findNumberMisplacedTiles(State state) {
+    public int findNumberMisplacedTiles(State state) {
         int misplaced = 0;
         for (int i = 0; i < state.getNums().size() - 1; i++) {
             if (!state.getNums().get(i).equals(goalState.getNums().get(i))) {
@@ -115,4 +115,56 @@ public class StateTransformer {
         return misplaced;
     }
 
+    public int findSumOfManhattanDistances(State state) {
+        int sum = 0;
+        for (int i = 0; i < state.getNums().size(); i++) {
+            int goalPosition = goalState.getNums().indexOf(state.getNums().get(i));
+            sum += getDistance(i, goalPosition);
+        }
+        return sum;
+    }
+
+    private int getDistance(int currentPosition, int goalPosition) {
+        int x1 = getRow(currentPosition);
+        int y1 = getCol(currentPosition);
+        int x2 = getRow(goalPosition);
+        int y2 = getCol(goalPosition);
+        return Math.abs(x2 - x1) + Math.abs(y2 - y1);
+    }
+
+    private int getCol(int position) {
+        switch (position) {
+            case 0:
+            case 3:
+            case 6:
+                return 0;
+            case 1:
+            case 4:
+            case 7:
+                return 1;
+            case 2:
+            case 5:
+            case 8:
+                return 2;
+        }
+        return 0;
+    }
+
+    private int getRow(int position) {
+        switch (position) {
+            case 0:
+            case 1:
+            case 2:
+                return 0;
+            case 3:
+            case 4:
+            case 5:
+                return 1;
+            case 6:
+            case 7:
+            case 8:
+                return 2;
+        }
+        return 0;
+    }
 }

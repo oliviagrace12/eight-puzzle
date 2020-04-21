@@ -5,23 +5,29 @@ import java.util.List;
 /**
  * Created by oliviachisman on 4/11/20
  */
-public class Node implements Comparable {
+public class Node {
 
     private final State state;
     private final Action action;
     private final int pathCost;
-    private final int heuristic;
+    private final int misplacedTiles;
+    private final int manhattanDistance;
     private List<Node> children;
 
-    public Node(State state, Action action, int pathCost, int heuristic) {
+    public Node(State state, Action action, int pathCost, int misplacedTiles, int manhattanDistance) {
         this.state = state;
         this.action = action;
         this.pathCost = pathCost;
-        this.heuristic = heuristic;
+        this.misplacedTiles = misplacedTiles;
+        this.manhattanDistance = manhattanDistance;
     }
 
-    public int getHeuristic() {
-        return heuristic;
+    public int getManhattanDistance() {
+        return manhattanDistance;
+    }
+
+    public int getMisplacedTiles() {
+        return misplacedTiles;
     }
 
     public int getPathCost() {
@@ -44,25 +50,5 @@ public class Node implements Comparable {
         return action;
     }
 
-    @Override
-    public String toString() {
-        return "Node{" +
-                "state=\n" + state +
-                ", children=" + children +
-                ", action=" + action +
-                '}';
-    }
 
-    @Override
-    public int compareTo(Object o) {
-        if (o instanceof Node) {
-            if (this.state.equals(((Node) o).state)
-                    && this.action.equals(((Node) o).action)
-                    && this.children.containsAll(((Node) o).children)) {
-                return 0;
-            }
-        }
-
-        return-1;
-}
 }
