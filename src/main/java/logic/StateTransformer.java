@@ -15,23 +15,23 @@ public class StateTransformer {
 
     private State goalState = new State(List.of(1, 2, 3, 8, 0, 4, 7, 6, 5));
 
-    public Node transform(State initState, Action action) {
-
+    public Node transform(Node initialNode, Action action) {
         switch (action) {
             case UP:
-                return moveUp(initState);
+                return moveUp(initialNode);
             case DOWN:
-                return moveDown(initState);
+                return moveDown(initialNode);
             case LEFT:
-                return modeLeft(initState);
+                return modeLeft(initialNode);
             case RIGHT:
-                return moveRight(initState);
+                return moveRight(initialNode);
         }
 
         return null;
     }
 
-    private Node moveUp(State initState) {
+    private Node moveUp(Node initialNode) {
+        State initState = initialNode.getState();
         int initBlank = initState.getBlank();
         if (initBlank == 0 || initBlank == 1 || initBlank == 2) {
             System.out.println("ERROR: Cannot move up from top row");
@@ -46,10 +46,13 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.UP, valueToMove, findNumberMisplacedTiles(newState), findSumOfManhattanDistances(newState));
+        return new Node(newState, Action.UP, valueToMove, findNumberMisplacedTiles(newState),
+                findSumOfManhattanDistances(newState), initialNode);
     }
 
-    private Node moveDown(State initState) {
+    private Node moveDown(Node initialNode) {
+        State initState = initialNode.getState();
+
         int initBlank = initState.getBlank();
         if (initBlank == 6 || initBlank == 7 || initBlank == 8) {
             System.out.println("ERROR: Cannot move down from bottom row");
@@ -64,10 +67,12 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.DOWN, valueToMove, findNumberMisplacedTiles(newState), findSumOfManhattanDistances(newState));
+        return new Node(newState, Action.DOWN, valueToMove, findNumberMisplacedTiles(newState),
+                findSumOfManhattanDistances(newState), initialNode);
     }
 
-    private Node modeLeft(State initState) {
+    private Node modeLeft(Node initialNode) {
+        State initState = initialNode.getState();
         int initBlank = initState.getBlank();
         if (initBlank == 0 || initBlank == 3 || initBlank == 6) {
             System.out.println("ERROR: Cannot move left from leftmost row");
@@ -83,10 +88,12 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.LEFT, valueToMove, findNumberMisplacedTiles(newState), findSumOfManhattanDistances(newState));
+        return new Node(newState, Action.LEFT, valueToMove, findNumberMisplacedTiles(newState),
+                findSumOfManhattanDistances(newState), initialNode);
     }
 
-    private Node moveRight(State initState) {
+    private Node moveRight(Node initialNode) {
+        State initState = initialNode.getState();
         int initBlank = initState.getBlank();
         if (initBlank == 2 || initBlank == 5 || initBlank == 8) {
             System.out.println("ERROR: Cannot move left from leftmost row");
@@ -102,7 +109,8 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.RIGHT, valueToMove, findNumberMisplacedTiles(newState), findSumOfManhattanDistances(newState));
+        return new Node(newState, Action.RIGHT, valueToMove, findNumberMisplacedTiles(newState),
+                findSumOfManhattanDistances(newState), initialNode);
     }
 
     public int findNumberMisplacedTiles(State state) {

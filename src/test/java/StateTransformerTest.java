@@ -14,14 +14,14 @@ public class StateTransformerTest {
 
     @Test
     public void testUpDown() {
-        State initState = new State(List.of(1, 3, 4, 8, 6, 2, 7, 0, 5));
-        System.out.println(initState);
+        Node initNode = new Node(new State(List.of(1, 3, 4, 8, 6, 2, 7, 0, 5)), null, 0, 0, 0, null);
+        System.out.println(initNode);
 
         StateTransformer transformer = new StateTransformer();
-        Node node2 = transformer.transform(initState, UP);
+        Node node2 = transformer.transform(initNode, UP);
         System.out.println(node2);
 
-        Node node3 = transformer.transform(node2.getState(), DOWN);
+        Node node3 = transformer.transform(node2, DOWN);
         System.out.println(node3);
 
         assert node2.getState().getNums().equals(List.of(1, 3, 4, 8, 0, 2, 7, 6, 5));
@@ -30,11 +30,11 @@ public class StateTransformerTest {
 
     @Test
     public void testLeft() {
-        State initState = new State(List.of(1, 3, 4, 8, 6, 2, 7, 0, 5));
-        System.out.println(initState);
+        Node initNode = new Node(new State(List.of(1, 3, 4, 8, 6, 2, 7, 0, 5)), null, 0, 0, 0, null);
+        System.out.println(initNode);
 
         StateTransformer transformer = new StateTransformer();
-        Node node2 = transformer.transform(initState, LEFT);
+        Node node2 = transformer.transform(initNode, LEFT);
         System.out.println(node2.getState());
 
         assert node2.getState().getNums().equals(List.of(1, 3, 4, 8, 6, 2, 0, 7, 5));
@@ -42,11 +42,11 @@ public class StateTransformerTest {
 
     @Test
     public void testRight() {
-        State initState = new State(List.of(1, 3, 4, 8, 6, 2, 7, 0, 5));
-        System.out.println(initState);
+        Node initNode = new Node(new State(List.of(1, 3, 4, 8, 6, 2, 7, 0, 5)), null, 0, 0, 0, null);
+        System.out.println(initNode);
 
         StateTransformer transformer = new StateTransformer();
-        Node node2 = transformer.transform(initState, RIGHT);
+        Node node2 = transformer.transform(initNode, RIGHT);
         System.out.println(node2.getState());
 
         assert node2.getState().getNums().equals(List.of(1, 3, 4, 8, 6, 2, 7, 5, 0));

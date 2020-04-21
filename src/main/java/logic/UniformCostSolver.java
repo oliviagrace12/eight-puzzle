@@ -27,7 +27,7 @@ public class UniformCostSolver extends Solver {
             explored.add(current.getState());
 
             for (Action action : possibleActions.get(current.getState().getBlank())) {
-                Node childNode = stateTransformer.transform(current.getState(), action);
+                Node childNode = stateTransformer.transform(current, action);
                 if (!explored.contains(childNode.getState()) && !toExplore.contains(childNode)) {
                     if (isGoalState(childNode.getState())) {
                         return Optional.of(childNode);
