@@ -21,6 +21,10 @@ public class Node {
         this.parent = parent;
     }
 
+    public Node(State state) {
+        this(state, null, 0, 0, 0, null);
+    }
+
     public Node getParent() {
         return parent;
     }
