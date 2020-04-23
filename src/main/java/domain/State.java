@@ -40,10 +40,9 @@ public class State {
 
     @Override
     public String toString() {
-        return "\t[" + nums.get(0) + " " + nums.get(1) + " " + nums.get(2) + "]\n" +
-                "\t[" + nums.get(3) + " " + nums.get(4) + " " + nums.get(5) + "]\n" +
-                "\t[" + nums.get(6) + " " + nums.get(7) + " " + nums.get(8) + "]\n" +
-                "blank location: " + blank + "\n";
+        return "\t\t[" + nums.get(0) + " " + nums.get(1) + " " + nums.get(2) + "]\n" +
+                "\t\t[" + nums.get(3) + " " + nums.get(4) + " " + nums.get(5) + "]\n" +
+                "\t\t[" + nums.get(6) + " " + nums.get(7) + " " + nums.get(8) + "]";
     }
 
 

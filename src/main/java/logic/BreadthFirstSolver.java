@@ -20,9 +20,9 @@ public class BreadthFirstSolver extends Solver {
             return Optional.of(node);
         }
 
-        HashSet<State> explored = new HashSet<>();
         Queue<Node> toExplore = new ArrayDeque<>();
         toExplore.add(node);
+        updateMaxQueue(toExplore.size());
 
         Node current;
         while (!toExplore.isEmpty()) {
@@ -36,6 +36,7 @@ public class BreadthFirstSolver extends Solver {
                         return Optional.of(childNode);
                     } else {
                         toExplore.add(childNode);
+                        updateMaxQueue(toExplore.size());
                     }
                 }
             }

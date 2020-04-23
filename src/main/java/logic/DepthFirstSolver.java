@@ -16,9 +16,9 @@ public class DepthFirstSolver extends Solver {
             return Optional.of(node);
         }
 
-        HashSet<State> explored = new HashSet<>();
         Stack<Node> toExplore = new Stack<>();
         toExplore.add(node);
+        updateMaxQueue(toExplore.size());
 
         Node current;
         while (!toExplore.isEmpty()) {
@@ -32,6 +32,7 @@ public class DepthFirstSolver extends Solver {
                         return Optional.of(childNode);
                     } else {
                         toExplore.push(childNode);
+                        updateMaxQueue(toExplore.size());
                     }
                 }
             }

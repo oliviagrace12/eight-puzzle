@@ -46,7 +46,7 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.UP, valueToMove, findNumberMisplacedTiles(newState),
+        return new Node(newState, Action.UP, initialNode.getPathCost() + valueToMove, findNumberMisplacedTiles(newState),
                 findSumOfManhattanDistances(newState), initialNode);
     }
 
@@ -67,7 +67,7 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.DOWN, valueToMove, findNumberMisplacedTiles(newState),
+        return new Node(newState, Action.DOWN, initialNode.getPathCost() + valueToMove, findNumberMisplacedTiles(newState),
                 findSumOfManhattanDistances(newState), initialNode);
     }
 
@@ -88,7 +88,7 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.LEFT, valueToMove, findNumberMisplacedTiles(newState),
+        return new Node(newState, Action.LEFT, initialNode.getPathCost() + valueToMove, findNumberMisplacedTiles(newState),
                 findSumOfManhattanDistances(newState), initialNode);
     }
 
@@ -109,7 +109,7 @@ public class StateTransformer {
 
         State newState = new State(newNums);
 
-        return new Node(newState, Action.RIGHT, valueToMove, findNumberMisplacedTiles(newState),
+        return new Node(newState, Action.RIGHT, initialNode.getPathCost() + valueToMove, findNumberMisplacedTiles(newState),
                 findSumOfManhattanDistances(newState), initialNode);
     }
 

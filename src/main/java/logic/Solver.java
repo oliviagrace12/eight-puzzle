@@ -16,6 +16,8 @@ public abstract class Solver {
     final HashMap<Integer, List<Action>> possibleActions;
     final StateTransformer stateTransformer = new StateTransformer();
     private final State goalState;
+    protected int maxQueue = 0;
+    protected HashSet<State> explored = new HashSet<>();
 
     public Solver() {
         this.possibleActions = generatePossibleActions();
@@ -42,6 +44,20 @@ public abstract class Solver {
         actions.put(8, List.of(LEFT, UP));
 
         return actions;
+    }
+
+    protected void updateMaxQueue(int queueSize) {
+        if (queueSize > maxQueue) {
+            maxQueue = queueSize;
+        }
+    }
+
+    public int getTime() {
+        return explored.size();
+    }
+
+    public int getSpace() {
+        return maxQueue;
     }
 
 }

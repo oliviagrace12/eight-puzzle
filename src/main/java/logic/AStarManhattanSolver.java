@@ -20,9 +20,9 @@ public class AStarManhattanSolver extends Solver {
             return Optional.of(node);
         }
 
-        HashSet<State> explored = new HashSet<>();
         PriorityQueue<Node> toExplore = new PriorityQueue<>(Comparator.comparing(n -> n.getPathCost() + n.getManhattanDistance()));
         toExplore.add(node);
+        updateMaxQueue(toExplore.size());
 
         Node current;
         while (!toExplore.isEmpty()) {
@@ -36,6 +36,7 @@ public class AStarManhattanSolver extends Solver {
                         return Optional.of(childNode);
                     } else {
                         toExplore.add(childNode);
+                        updateMaxQueue(toExplore.size());
                     }
                 }
             }

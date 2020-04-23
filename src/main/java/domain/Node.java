@@ -49,14 +49,22 @@ public class Node {
         return action;
     }
 
+    public int getPathLength() {
+        if (parent == null) {
+            return 0;
+        } else {
+            return 1 + parent.getPathCost();
+        }
+    }
+
     @Override
     public String toString() {
-        return "Node{" +
-                "state=\n" + state + "\n" +
-                ", action=" + action +
-                ", pathCost=" + pathCost +
-                ", misplacedTiles=" + misplacedTiles +
-                ", manhattanDistance=" + manhattanDistance +
+        return "Node{" + "\n" +
+                "\tstate=\n" + state + "\n" +
+                "\taction=" + action + "\n" +
+                "\tpathCost=" + pathCost + "\n" +
+                "\tmisplacedTiles=" + misplacedTiles + "\n" +
+                "\tmanhattanDistance=" + manhattanDistance + "\n" +
                 '}' + "\n" +
                 parent;
     }
